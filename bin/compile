@@ -106,8 +106,11 @@ cd "$CACHE_DIR"
 if [ -d "$CARGO_HOME" ]; then
     echo "-----> Checking for new releases of Rust $VERSION channel"
     # It's possible that $VERSION has changed, or the `stable` channel has updated.
+    echo "rustup self update"
     rustup self update
+    echo "rustup update $VERSION"
     rustup update "$VERSION"
+    echo "rustup default $VERSION"
     rustup default "$VERSION"
 else
     echo "-----> Downloading rustup"
@@ -123,8 +126,10 @@ if [ ! -x "$CARGO_HOME/bin/rustc" ]; then
 fi
 
 # Install cargo-leptos if it is not already installed.
+echo "cargo leptos --help"
 cargo leptos --help 1>/dev/null 2>/dev/null
 if [ $? -ne 0 ]; then
+    echo "cargo install --locked cargo-leptos"
     cargo install --locked cargo-leptos
 fi
 
@@ -145,6 +150,7 @@ if [ $RUST_SKIP_BUILD -ne 1 ]; then
   echo "-----> Building application using cargo-leptos"
   cd "$BUILD_DIR/$BUILD_PATH"
   rm -rf target/
+  echo "cargo leptos build $RUST_CARGO_BUILD_FLAGS"
   cargo leptos build $RUST_CARGO_BUILD_FLAGS
   mkdir -p target/release
   find "$CARGO_TARGET_DIR/release" -maxdepth 1 -type f -executable -exec cp -a -t target/release {} \;
