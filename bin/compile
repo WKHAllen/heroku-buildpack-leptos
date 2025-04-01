@@ -129,6 +129,10 @@ fi
 echo "cargo install --locked cargo-leptos"
 cargo install --locked cargo-leptos
 
+# Add the wasm32-unknown-unknown target
+echo "rustup target add wasm32-unknown-unknown"
+rustup target add wasm32-unknown-unknown
+
 # This is where we will cache our Rust output.  Note the suggestions at
 # https://github.com/alexcrichton/cargo/commit/014765f788ca1c2476936835ca32cc2746f99b42
 # which describe how this needs to be named.
