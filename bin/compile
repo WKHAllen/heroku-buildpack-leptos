@@ -125,13 +125,9 @@ if [ ! -x "$CARGO_HOME/bin/rustc" ]; then
   exit 1
 fi
 
-# Install cargo-leptos if it is not already installed.
-echo "cargo leptos --help"
-cargo leptos --help 1>/dev/null 2>/dev/null
-if [ $? -ne 0 ]; then
-    echo "cargo install --locked cargo-leptos"
-    cargo install --locked cargo-leptos
-fi
+# Assume cargo-leptos is not installed.
+echo "cargo install --locked cargo-leptos"
+cargo install --locked cargo-leptos
 
 # This is where we will cache our Rust output.  Note the suggestions at
 # https://github.com/alexcrichton/cargo/commit/014765f788ca1c2476936835ca32cc2746f99b42
